@@ -49,7 +49,7 @@ bool CheckWordForErrors(string word) {
         return true;
     }
 
-    if (word.find_first_not_of("ABCDEFGHIJKLMNOPQRSTUVWXYZ") != std::string::npos){
+    if (word.find_first_not_of("ABCDEFGHIJKLMNOPQRSTUVWXYZ") != std::string::npos) {
         cout << "It contains a special character wile it souldnt " << endl;
         return true;
     }
@@ -59,25 +59,30 @@ bool CheckWordForErrors(string word) {
 }
 
 int LetterChecking(string wordToGuess, string guessedWord, int potition, map<char, int>& m) {
+    bool green = false , yellow = false;
+
 
     for (size_t i = 0; i < 5; i++)
     {
-        if(guessedWord[potition] == wordToGuess[i]) {
+        if (guessedWord[potition] == wordToGuess[i]) {
             if (i == potition)
             {
-                return (int)ForegroundColor::Green;
+                green = true;
             }
-            return (int)ForegroundColor::Yellow;
+            yellow = true;
         }
     }
+    if (green) {
+        return (int)ForegroundColor::Green;
+    }
+    if (yellow == true){
+        return (int)ForegroundColor::Yellow;
+    }
+
     m[guessedWord[potition]] ++;;
     return (int)ForegroundColor::Gray;
 }
 
-
-void MapInit(map<char, int>& m) {
-
-}
 
 
 int main()
@@ -94,13 +99,13 @@ int main()
     while (std::getline(file, str)) {
         WordList.push_back(str);
     }
-    wordToGuess = WordList[randNum(WordList.size())] ;
-    //wordToGuess = "ADDAX";
-    
+    wordToGuess = WordList[randNum(WordList.size())];
+    //wordToGuess = "ADDAX"; //delete me
 
 
 
-    cout << wordToGuess << endl; // remember to delete me
+
+    //cout << wordToGuess << endl; // remember to delete me
 
     cout << "This is wordle, a game where you guess a 5 letter word with the information: " << endl;
     cout << "If you got a letter in the right potiotion it will show in " << FOREGROUND(ForegroundColor::Green, "Green") << endl;
@@ -118,14 +123,14 @@ int main()
             c = ::toupper(c);
             });
 
-        
+
 
         if (CheckWordForErrors(guessingWord))
         {
             cout << "You guessed wrong you moron, no special characters or spaces just 5 letters" << endl;
         }
         else {
-            cout << FOREGROUND(LetterChecking(wordToGuess,guessingWord, 0, m ), guessingWord[0]) << " " << FOREGROUND(LetterChecking(wordToGuess, guessingWord, 1, m), guessingWord[1]) << " "
+            cout << FOREGROUND(LetterChecking(wordToGuess, guessingWord, 0, m), guessingWord[0]) << " " << FOREGROUND(LetterChecking(wordToGuess, guessingWord, 1, m), guessingWord[1]) << " "
                 << FOREGROUND(LetterChecking(wordToGuess, guessingWord, 2, m), guessingWord[2]) << " " << FOREGROUND(LetterChecking(wordToGuess, guessingWord, 3, m), guessingWord[3]) <<
                 " " << FOREGROUND(LetterChecking(wordToGuess, guessingWord, 4, m), guessingWord[4]) << endl;
         }
@@ -138,7 +143,7 @@ int main()
         cout << endl;
         cout << endl;
 
-        
+
         if (guessingWord.compare(wordToGuess) == 0)
         {
             cout << "you guessed correctly you win " << endl;
