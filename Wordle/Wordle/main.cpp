@@ -75,6 +75,7 @@ int LetterChecking(string wordToGuess, string guessedWord, int potition, map<cha
     if (green) {
         return (int)ForegroundColor::Green;
     }
+
     if (yellow == true){
         return (int)ForegroundColor::Yellow;
     }
