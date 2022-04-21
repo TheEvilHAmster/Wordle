@@ -15,7 +15,7 @@ using namespace std;
 
 
 template <typename T>
-void print_vector(const std::vector<T>& vec, std::string sep = " ")
+void print_vector(const std::vector<T>& vec, std::string sep = " ") // feedback: seems like this function is never used..
 {
     for (auto elem : vec)
     {
@@ -41,7 +41,7 @@ int randNum(int range)
     return distr(gen);
 }
 
-bool CheckWordForErrors(string word) {
+bool CheckWordForErrors(string word) { // feedback: string argument could be a reference to avoid string copy
 
     if (word.length() != 5)
     {
@@ -69,7 +69,7 @@ int LetterChecking(string wordToGuess, string guessedWord, int potition, map<cha
             {
                 green = true;
             }
-            yellow = true;
+            yellow = true; // feedback: seems like it can be both green and yellow at the same time.
         }
     }
     if (green) {
@@ -89,10 +89,11 @@ int LetterChecking(string wordToGuess, string guessedWord, int potition, map<cha
 int main()
 {
 
-    map<char, int> m;
+    map<char, int> m; // feedback: Not sure I fully understand idea behind this map. As the actual values are never used,
+                      // only incremented upon inserting keys to the map.
     bool winning = false;
     int numOfTries = 6;
-    vector<string> WordList, listOfGuesses;
+    vector<string> WordList, listOfGuesses; // feedback: listOfGuesses is not used anywhere
     string guessingWord, wordToGuess;
     ifstream file("words.txt");
     string str;
@@ -131,6 +132,7 @@ int main()
             cout << "You guessed wrong you moron, no special characters or spaces just 5 letters" << endl;
         }
         else {
+            // feedback: those calls could be done in a loop
             cout << FOREGROUND(LetterChecking(wordToGuess, guessingWord, 0, m), guessingWord[0]) << " " << FOREGROUND(LetterChecking(wordToGuess, guessingWord, 1, m), guessingWord[1]) << " "
                 << FOREGROUND(LetterChecking(wordToGuess, guessingWord, 2, m), guessingWord[2]) << " " << FOREGROUND(LetterChecking(wordToGuess, guessingWord, 3, m), guessingWord[3]) <<
                 " " << FOREGROUND(LetterChecking(wordToGuess, guessingWord, 4, m), guessingWord[4]) << endl;
@@ -158,7 +160,7 @@ int main()
 
     if (winning)
     {
-
+        // feedback: not sure what was the intention here, seems like some old code was not cleaned up.
     }
     else
     {
